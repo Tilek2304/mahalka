@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Robot Control</title>
+    <style>
+        .control-panel {
+            /* Стили для кнопок */
+        }
+    </style>
+</head>
+<body>
+    <div class="video-stream">
+        <img src="{% url 'video_feed' %}" id="video">
+    </div>
+    
+    <div class="control-panel">
+        <button class="btn forward" ontouchstart="sendCommand('forward')" ontouchend="sendCommand('stop')">Вперед</button>
+        <button class="btn left" ontouchstart="sendCommand('left')" ontouchend="sendCommand('stop')">Лево</button>
+        <button class="btn right" ontouchstart="sendCommand('right')" ontouchend="sendCommand('stop')">Право</button>
+        <button class="btn back" ontouchstart="sendCommand('backward')" ontouchend="sendCommand('stop')">Назад</button>
+        <button class="btn horn" onclick="sendCommand('horn')">Сигнал</button>
+    </div>
+
+    <script>
+        function sendCommand(cmd) {
+            fetch('/command/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: 'command=' + cmd
+            });
+        }
+    </script>
+</body>
+</html>

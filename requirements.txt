@@ -1,0 +1,5 @@
+adafruit_pca9685==1.0.1
+board==1.0
+channels==4.2.2
+Django==4.2.20
+opencv_python==4.11.0.86
